@@ -187,7 +187,17 @@ Parameters: int ; list of strs ; list of floats ; dict mapping strs to (dicts ma
 Returns: str
 '''
 def generateTextFromBigrams(count, startWords, startWordProbs, bigramProbs):
-    return
+    text=""
+    z=choices(startWords,weights=startWordProbs)[0]
+    text=z
+    for i in range(count-1):
+        if z!=".":
+            z=choices(bigramProbs[z]["words"],weights=bigramProbs[z]["probs"])[0]
+            text+=" "+z
+        else:
+            z=choices(startWords,weights=startWordProbs)[0]
+            text+=" "+z   
+    return text
 
 
 ### WEEK 3 ###
@@ -348,14 +358,15 @@ if __name__ == "__main__":
     # test.testBuildUnigramProbs()
     # test.testBuildBigramProbs()
     # test.testGetTopWords()
-    test.testGenerateTextFromUnigrams()
+    # test.testGenerateTextFromUnigrams()
+    # test.testGenerateTextFromBigrams()
     ## Uncomment these for Week 2 ##
-"""
+
     print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
     test.week2Tests()
     print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
     test.runWeek2()
-"""
+
 
     ## Uncomment these for Week 3 ##
 """
