@@ -215,10 +215,8 @@ Parameters: 2D list of strs
 Returns: None
 '''
 def graphTop50Words(corpus):
-    unigrams=buildVocabulary(corpus)
-    totalCount=getCorpusLength(corpus)
-    unigramProbs=buildUnigramProbs(unigrams, countUnigrams(corpus), totalCount)
-    mostFreqWords=getTopWords(50, unigrams, unigramProbs, ignore)
+    unigramProbs=buildUnigramProbs(buildVocabulary(corpus), countUnigrams(corpus), getCorpusLength(corpus))
+    mostFreqWords=getTopWords(50, buildVocabulary(corpus), unigramProbs, ignore)
     barPlot(mostFreqWords, "Top 50 most frequent words using Unigram model")
 
 
@@ -229,7 +227,9 @@ Parameters: 2D list of strs
 Returns: None
 '''
 def graphTopStartWords(corpus):
-    return
+    startWordProbs = buildUnigramProbs(getStartWords(corpus), countStartWords(corpus), getCorpusLength(corpus))
+    mostFreqWords=getTopWords(50, getStartWords(corpus), startWordProbs, ignore)
+    barPlot(mostFreqWords,"Top 50 most frequent start words")
 
 
 '''
