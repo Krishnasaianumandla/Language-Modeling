@@ -289,6 +289,7 @@ def barPlot(dict, title):
 
     plt.show()
 
+
 """
 Expects 3 lists - one of x values, and two of values such that the index of a name
 corresponds to a value at the same index in both lists. Category1 and Category2
@@ -361,12 +362,12 @@ if __name__ == "__main__":
     # test.testGenerateTextFromUnigrams()
     # test.testGenerateTextFromBigrams()
     ## Uncomment these for Week 2 ##
-
+'''
     print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
     test.week2Tests()
     print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
     test.runWeek2()
-
+'''
 
     ## Uncomment these for Week 3 ##
 """
