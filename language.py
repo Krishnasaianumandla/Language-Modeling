@@ -17,7 +17,7 @@ Parameters: str
 Returns: 2D list of strs
 '''
 def loadBook(filename):
-    lst=[]
+    lst= []
     f= open(filename,"r")
     for x in f:
         if x!="\n":
