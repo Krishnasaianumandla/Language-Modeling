@@ -239,7 +239,10 @@ Parameters: 2D list of strs ; str
 Returns: None
 '''
 def graphTopNextWords(corpus, word):
-    return
+    bigramProbs=buildBigramProbs(countUnigrams(corpus),countBigrams(corpus))
+    mostFreqWords=getTopWords(10,bigramProbs[word]["words"],bigramProbs[word]["probs"],ignore)
+    wordName="Top 10 words after the given word: {}".format(word)
+    barPlot(mostFreqWords,wordName)
 
 
 '''
