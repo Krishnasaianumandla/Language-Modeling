@@ -1,7 +1,7 @@
 """
 Language Modeling Project
-Name:
-Roll No:
+Name: Anumandla Krishna Sai
+Roll No: 2021501010
 """
 
 import language_tests as test
@@ -330,8 +330,8 @@ def scatterPlot(xs, ys, labels, title):
                     ha='center') # horizontal alignment can be left, right or center
 
     plt.title(title)
-    plt.xlim(0, 0.02)
-    plt.ylim(0, 0.02)
+    # plt.xlim(0, 0.02)
+    plt.ylim(-1, 1)
 
     # a bit of advanced code to draw a y=x line
     ax.plot([0, 1], [0, 1], color='black', transform=ax.transAxes)
@@ -348,6 +348,17 @@ if __name__ == "__main__":
     test.week1Tests()
     print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
     test.runWeek1()'''
+    d={ "hello" : 1, "and" : 1, "welcome" : 1, "to" : 2, "15-110" : 1, 
+          "." : 2, "we're" : 1, "happy" : 1, "have" : 1, "you" : 1 }
+    barPlot(d,"Most used words of the authors")
+    words = [ "hello", "and", "welcome", "to", "15-110", ".", "we're", "happy", "have", "you" ]
+    probs = [ 4/12, 3/12, 2/12, 2/12, 1/12, 2/12, 1/12, 6/12, 7/12, 7/12 ]
+    probs1 = [ 6/12, 5/12, 4/12, 2/12, 5/12, 8/12, 9/12, 10/12, 11/12, 4/12 ]
+    sideBySideBarPlots(words, probs, probs1, "Unigram Model", "Bigram Model", "Probabilities of word occuring in Unigram Model VS Bigram Model")
+    labels=[ "hello", "and", "welcome", "to", "15-110", ".", "we're", "happy", "have", "you" ]
+    ys = [ -4/12, 3/12, -2/12, 2/12, -1/12, 2/12, -1/12, 6/12, -7/12, 7/12 ]
+    xs=[25, 15, 18, 29, 15, 32, 34, 12, 5, 15]
+    scatterPlot(xs, ys, labels, "sideBySideBarPlots for Unigram model")
     # test.testLoadBook()
     # test.testGetCorpusLength()
     # test.testBuildVocabulary()
