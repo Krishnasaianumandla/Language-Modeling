@@ -163,7 +163,8 @@ Returns: dict mapping strs to floats
 def getTopWords(count, words, probs, ignoreList):
     topWords=dict(zip(words,probs))
     for i in ignoreList:
-        topWords.pop(i)
+        if i in topWords:
+            topWords.pop(i)
     return dict(sorted(topWords.items(),key=lambda x:x[1],reverse=True)[:count])
 
 
@@ -214,7 +215,11 @@ Parameters: 2D list of strs
 Returns: None
 '''
 def graphTop50Words(corpus):
-    return
+    unigrams=buildVocabulary(corpus)
+    totalCount=getCorpusLength(corpus)
+    unigramProbs=buildUnigramProbs(unigrams, countUnigrams(corpus), totalCount)
+    mostFreqWords=getTopWords(50, unigrams, unigramProbs, ignore)
+    barPlot(mostFreqWords, "Top 50 most frequent words using Unigram model")
 
 
 '''
@@ -343,11 +348,12 @@ def scatterPlot(xs, ys, labels, title):
 
 # This code runs the test cases to check your work
 if __name__ == "__main__":
-    '''
+    
     print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
     test.week1Tests()
     print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
-    test.runWeek1()'''
+    test.runWeek1()
+    '''
     d={ "hello" : 1, "and" : 1, "welcome" : 1, "to" : 2, "15-110" : 1, 
           "." : 2, "we're" : 1, "happy" : 1, "have" : 1, "you" : 1 }
     barPlot(d,"Most used words of the authors")
@@ -358,7 +364,7 @@ if __name__ == "__main__":
     labels=[ "hello", "and", "welcome", "to", "15-110", ".", "we're", "happy", "have", "you" ]
     ys = [ -4/12, 3/12, -2/12, 2/12, -1/12, 2/12, -1/12, 6/12, -7/12, 7/12 ]
     xs=[25, 15, 18, 29, 15, 32, 34, 12, 5, 15]
-    scatterPlot(xs, ys, labels, "sideBySideBarPlots for Unigram model")
+    scatterPlot(xs, ys, labels, "Scatterplot for Unigram model")'''
     # test.testLoadBook()
     # test.testGetCorpusLength()
     # test.testBuildVocabulary()
@@ -373,15 +379,13 @@ if __name__ == "__main__":
     # test.testGenerateTextFromUnigrams()
     # test.testGenerateTextFromBigrams()
     ## Uncomment these for Week 2 ##
-'''
+
     print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
     test.week2Tests()
     print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
     test.runWeek2()
-'''
 
-    ## Uncomment these for Week 3 ##
-"""
+
+    # Uncomment these for Week 3 ##
     print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
     test.runWeek3()
-"""
