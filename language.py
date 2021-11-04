@@ -293,7 +293,7 @@ def barPlot(dict, title):
     plt.bar(names, values)
 
     plt.xticks(rotation='vertical')
-    plt.title(title)
+    plt.title(title,weight="bold",fontsize=15,color="red")
 
     plt.show()
 
