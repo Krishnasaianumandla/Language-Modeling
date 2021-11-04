@@ -216,8 +216,7 @@ Returns: None
 '''
 def graphTop50Words(corpus):
     unigrams=buildVocabulary(corpus)
-    totalCount=getCorpusLength(corpus)
-    unigramProbs=buildUnigramProbs(unigrams, countUnigrams(corpus), totalCount)
+    unigramProbs=buildUnigramProbs(unigrams, countUnigrams(corpus), getCorpusLength(corpus))
     mostFreqWords=getTopWords(50, unigrams, unigramProbs, ignore)
     barPlot(mostFreqWords, "Top 50 most frequent words using Unigram model")
 
