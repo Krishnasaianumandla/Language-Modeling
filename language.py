@@ -215,8 +215,9 @@ Parameters: 2D list of strs
 Returns: None
 '''
 def graphTop50Words(corpus):
-    unigramProbs=buildUnigramProbs(buildVocabulary(corpus), countUnigrams(corpus), getCorpusLength(corpus))
-    mostFreqWords=getTopWords(50, buildVocabulary(corpus), unigramProbs, ignore)
+    unigrams=buildVocabulary(corpus)
+    unigramProbs=buildUnigramProbs(unigrams, countUnigrams(corpus), getCorpusLength(corpus))
+    mostFreqWords=getTopWords(50, unigrams, unigramProbs, ignore)
     barPlot(mostFreqWords, "Top 50 most frequent words using Unigram model")
 
 
@@ -227,8 +228,9 @@ Parameters: 2D list of strs
 Returns: None
 '''
 def graphTopStartWords(corpus):
-    startWordProbs = buildUnigramProbs(getStartWords(corpus), countStartWords(corpus), getCorpusLength(corpus))
-    mostFreqWords=getTopWords(50, getStartWords(corpus), startWordProbs, ignore)
+    startWords=getStartWords(corpus)
+    startWordProbs = buildUnigramProbs(startWords, countStartWords(corpus), getCorpusLength(corpus))
+    mostFreqWords=getTopWords(50, startWords, startWordProbs, ignore)
     barPlot(mostFreqWords,"Top 50 most frequent start words")
 
 
@@ -252,7 +254,22 @@ Parameters: 2D list of strs ; 2D list of strs ; int
 Returns: dict mapping strs to (lists of values)
 '''
 def setupChartData(corpus1, corpus2, topWordCount):
-    return
+    unigrams1=buildVocabulary(corpus1)
+    unigramProbs1=buildUnigramProbs(unigrams1, countUnigrams(corpus1), getCorpusLength(corpus1))
+    mostFreqWords1=getTopWords(topWordCount, unigrams1, unigramProbs1, ignore)
+    unigrams2=buildVocabulary(corpus2)
+    unigramProbs2=buildUnigramProbs(unigrams2, countUnigrams(corpus2), getCorpusLength(corpus2))
+    mostFreqWords2=getTopWords(topWordCount, unigrams2, unigramProbs2, ignore)
+    topWords=[]
+    topWords.extend(list(mostFreqWords1.keys()))
+    for i in list(mostFreqWords2.keys()):
+        if i not in topWords:
+            topWords.append(i) 
+    probs1,probs2=[],[]
+    for i in topWords:
+        probs1.append(mostFreqWords1[i]) if i in mostFreqWords1 else probs1.append(0)
+        probs2.append(mostFreqWords2[i]) if i in mostFreqWords2 else probs2.append(0)       
+    return {"topWords":topWords,"corpus1Probs":probs1,"corpus2Probs":probs2}
 
 
 '''
@@ -262,8 +279,8 @@ Parameters: 2D list of strs ; str ; 2D list of strs ; str ; int ; str
 Returns: None
 '''
 def graphTopWordsSideBySide(corpus1, name1, corpus2, name2, numWords, title):
-    return
-
+    chartData=setupChartData(corpus1, corpus2, numWords)
+    sideBySideBarPlots(chartData["topWords"], chartData["corpus1Probs"], chartData["corpus2Probs"], name1, name2, title)
 
 '''
 graphTopWordsInScatterplot(corpus1, corpus2, numWords, title)
@@ -272,8 +289,8 @@ Parameters: 2D list of strs ; 2D list of strs ; int ; str
 Returns: None
 '''
 def graphTopWordsInScatterplot(corpus1, corpus2, numWords, title):
-    return
-
+    chartData=setupChartData(corpus1, corpus2, numWords)
+    scatterPlot(chartData["corpus1Probs"], chartData["corpus2Probs"], chartData["topWords"], title)
 
 ### WEEK 3 PROVIDED CODE ###
 
@@ -338,8 +355,8 @@ def scatterPlot(xs, ys, labels, title):
                     ha='center') # horizontal alignment can be left, right or center
 
     plt.title(title)
-    # plt.xlim(0, 0.02)
-    plt.ylim(-1, 1)
+    plt.xlim(0, 0.02)
+    plt.ylim(0, 0.02)
 
     # a bit of advanced code to draw a y=x line
     ax.plot([0, 1], [0, 1], color='black', transform=ax.transAxes)
@@ -381,6 +398,7 @@ if __name__ == "__main__":
     # test.testGetTopWords()
     # test.testGenerateTextFromUnigrams()
     # test.testGenerateTextFromBigrams()
+    # test.testSetupChartData()
     ## Uncomment these for Week 2 ##
 
     print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
