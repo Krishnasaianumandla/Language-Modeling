@@ -272,6 +272,8 @@ def setupChartData(corpus1, corpus2, topWordCount):
         if topWords[i] in unigrams2:
             ind = unigrams2.index(topWords[i])
             probs2.append(unigramProbs2[ind])  
+        else:
+            probs2.append(0)
         
     return {"topWords":topWords,"corpus1Probs":probs1,"corpus2Probs":probs2}
 
