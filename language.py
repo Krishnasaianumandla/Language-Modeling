@@ -263,18 +263,9 @@ def setupChartData(corpus1, corpus2, topWordCount):
     probs1,probs2=[],[]
     lst = list(mostFreqWords1.keys()) + list(mostFreqWords2.keys())
     topWords = list(dict.fromkeys(lst))
-    for i in range(len(topWords)):
-        if topWords[i] in unigrams1:
-            ind = unigrams1.index(topWords[i])
-            probs1.append(unigramProbs1[ind])
-        else:
-            probs1.append(0)
-        if topWords[i] in unigrams2:
-            ind = unigrams2.index(topWords[i])
-            probs2.append(unigramProbs2[ind])  
-        else:
-            probs2.append(0)
-        
+    for i in topWords:
+        probs1.append(unigramProbs1[unigrams1.index(i)]) if i in unigrams1 else probs1.append(0)
+        probs2.append(unigramProbs2[unigrams2.index(i)]) if i in unigrams2 else probs2.append(0)       
     return {"topWords":topWords,"corpus1Probs":probs1,"corpus2Probs":probs2}
 
 
