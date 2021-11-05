@@ -260,15 +260,19 @@ def setupChartData(corpus1, corpus2, topWordCount):
     unigrams2=buildVocabulary(corpus2)
     unigramProbs2=buildUnigramProbs(unigrams2, countUnigrams(corpus2), getCorpusLength(corpus2))
     mostFreqWords2=getTopWords(topWordCount, unigrams2, unigramProbs2, ignore)
-    topWords=[]
-    topWords.extend(list(mostFreqWords1.keys()))
-    for i in list(mostFreqWords2.keys()):
-        if i not in topWords:
-            topWords.append(i) 
     probs1,probs2=[],[]
-    for i in topWords:
-        probs1.append(mostFreqWords1[i]) if i in mostFreqWords1 else probs1.append(0)
-        probs2.append(mostFreqWords2[i]) if i in mostFreqWords2 else probs2.append(0)       
+    lst = list(mostFreqWords1.keys()) + list(mostFreqWords2.keys())
+    topWords = list(dict.fromkeys(lst))
+    for i in range(len(topWords)):
+        if topWords[i] in unigrams1:
+            ind = unigrams1.index(topWords[i])
+            probs1.append(unigramProbs1[ind])
+        else:
+            probs1.append(0)
+        if topWords[i] in unigrams2:
+            ind = unigrams2.index(topWords[i])
+            probs2.append(unigramProbs2[ind])  
+        
     return {"topWords":topWords,"corpus1Probs":probs1,"corpus2Probs":probs2}
 
 
@@ -369,10 +373,10 @@ def scatterPlot(xs, ys, labels, title):
 # This code runs the test cases to check your work
 if __name__ == "__main__":
     
-    print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
-    test.week1Tests()
-    print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
-    test.runWeek1()
+    # print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
+    # test.week1Tests()
+    # print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
+    # test.runWeek1()
     '''
     d={ "hello" : 1, "and" : 1, "welcome" : 1, "to" : 2, "15-110" : 1, 
           "." : 2, "we're" : 1, "happy" : 1, "have" : 1, "you" : 1 }
@@ -401,10 +405,10 @@ if __name__ == "__main__":
     # test.testSetupChartData()
     ## Uncomment these for Week 2 ##
 
-    print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
-    test.week2Tests()
-    print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
-    test.runWeek2()
+    # print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
+    # test.week2Tests()
+    # print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
+    # test.runWeek2()
 
 
     # Uncomment these for Week 3 ##
