@@ -385,7 +385,7 @@ if __name__ == "__main__":
     ys = [ -4/12, 3/12, -2/12, 2/12, -1/12, 2/12, -1/12, 6/12, -7/12, 7/12 ]
     xs=[25, 15, 18, 29, 15, 32, 34, 12, 5, 15]
     scatterPlot(xs, ys, labels, "Scatterplot for Unigram model")'''
-    # test.testLoadBook()
+    test.testLoadBook()
     # test.testGetCorpusLength()
     # test.testBuildVocabulary()
     # test.testCountUnigrams()
